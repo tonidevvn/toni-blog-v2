@@ -1,0 +1,143 @@
+const mock01 = '/images/mock01.webp';
+const mock02 = '/images/mock02.webp';
+const mock03 = '/images/mock03.webp';
+const mock04 = '/images/mock04.webp';
+const mock05 = '/images/mock05.webp';
+const mock06 = '/images/mock06.webp';
+
+import ProjectCard from '../components/ProjectCard';
+
+const projects = [
+  {
+    id: 1,
+    title: 'Ecommerce Web App',
+    description:
+      'A React E-commerce web app with an Ant Design interface, designed for development and prototype testing using readily available fake JSON data',
+    image: mock04,
+    technologies: ['React', 'Vite', 'TypeScript', 'Antd'],
+    repoLink: 'https://github.com/tonidevvn/ecom-explorer-antd',
+    liveLink: 'https://ecommerce-antd.vercel.app/',
+  },
+  {
+    id: 2,
+    title: 'Favorite Movies Collection',
+    description:
+      'This favorite movies collection web app leverages React, TypeScript, and Vite, utilizing a streamlined template for rapid development with HMR and ESLint.',
+    image: mock02,
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind'],
+    repoLink: 'https://github.com/tonidevvn/toni-movies-collection',
+    liveLink: 'https://toni-movies-collection.vercel.app/',
+  },
+  {
+    id: 3,
+    title: 'Food Price Tracker',
+    description:
+      'Track food prices in real-time across multiple online retailers. Features include advanced search and insightful data analytics.',
+    image: mock03,
+    technologies: [
+      'NextJs',
+      'Spring Boot',
+      'Web Crawling',
+      'Python',
+      'Selenium',
+      'SQL',
+      'MySQL',
+    ],
+    repoLink: 'https://github.com/tonidevvn/food-price-tracker',
+    liveLink: null,
+  },
+  {
+    id: 4,
+    title: 'FileNest',
+    description:
+      'FileNest is a scalable and reliable distributed file storage system using MinIO to efficiently manage large, redundant files with optimized retrieval.',
+    image: mock05,
+    technologies: [
+      'Python',
+      'Django',
+      'REST API',
+      'Tailwind',
+      'Amazon S3',
+      'MinIO',
+    ],
+    repoLink: 'https://github.com/tonidevvn/file-nest',
+    liveLink: null,
+  },
+  {
+    id: 5,
+    title: 'BusRadar - Real-time Bus Tracking',
+    description:
+      'A real-time bus tracking system powered by Spring Boot and React, offering precise arrival predictions and delay forecasts through GPS integration and advanced analytics.',
+    image: mock01,
+    technologies: [
+      'React',
+      'Java',
+      'Spring Boot',
+      'CSS',
+      'MongoDB',
+      'Docker',
+      'Python',
+      'Web Crawling',
+      'Redis',
+    ],
+    repoLink: 'https://github.com/tonidevvn/bus-radar/',
+    liveLink: null,
+  },
+  {
+    id: 6,
+    title: 'UWindsor Tours',
+    description:
+      'UWindsor Tours is an interactive 3D WebGL experience where players explore a virtual University of Windsor campus in a fun and engaging way.',
+    image: mock06,
+    technologies: ['Unity', 'C#', 'Game Development', 'Video Game'],
+    repoLink: 'https://github.com/tonidevvn/UWindsor-virtual-tours',
+    liveLink: 'https://uwindsor-tours-landing-page-b37u.vercel.app/',
+  },
+];
+
+import { useState } from 'react';
+import { BiChevronDown } from "react-icons/bi";
+
+function Projects() {
+  const [visibleProjects, setVisibleProjects] = useState(4);
+  const totalProjects = projects.length;
+
+  const handleLoadMore = () => {
+    setVisibleProjects((prev) => Math.min(prev + 2, totalProjects));
+  };
+
+  const reversedProjects = [...projects].reverse();
+  const visibleItems = reversedProjects.slice(0, visibleProjects);
+
+  return (
+    <section className='flex flex-col px-[10%] py-[5%] text-left max-md:block max-md:px-[5%]' id='projects'>
+      <header className='flex flex-col items-center text-center mb-12'>
+        <h2 className="font-bold text-5xl lg:text-6xl mb-6 gradient-text-accent uppercase">
+          Technical Projects
+        </h2>
+        <div className='h-1 w-24 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full glow-accent' />
+      </header>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 max-md:block'>
+        {visibleItems.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
+
+      {visibleProjects < totalProjects && (
+        <div className='flex justify-center mt-12'>
+          <a
+            href='https://github.com/tonidevvn/'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='btn-glass flex items-center gap-2 group px-8'
+          >
+            <span>Load More</span>
+            <BiChevronDown className='text-xl group-hover:translate-y-1 transition-transform duration-300' />
+          </a>
+        </div>
+      )}
+    </section>
+  );
+}
+
+export default Projects;
